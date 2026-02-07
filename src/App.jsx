@@ -11,15 +11,42 @@ function App() {
         </div>
         <button>How To Play</button>
       </header>
-      <main></main>
+      <main className="gameboard">
+        <div className="pokemon-card">
+          <span>Pika Pika</span>
+          <img src="/public/images/favicon.png" alt="" />
+        </div>
+        <div className="pokemon-card">
+          <span>Pika Pika</span>
+          <img src="/public/images/favicon.png" alt="" />
+        </div>
+        <div className="pokemon-card">
+          <span>Pika Pika</span>
+          <img src="/public/images/favicon.png" alt="" />
+        </div>
+        <div className="pokemon-card">
+          <span>Pika Pika</span>
+          <img src="/public/images/favicon.png" alt="" />
+        </div>
+        <div className="pokemon-card">
+          <span>Pika Pika</span>
+          <img src="/public/images/favicon.png" alt="" />
+        </div>
+        <div className="pokemon-card">
+          <span>Pika Pika</span>
+          <img src="/public/images/favicon.png" alt="" />
+        </div>
+      </main>
       <footer>
         <div>
-          <h2>Current Score</h2>
-          <span>0</span>
-        </div>
-        <div>
-          <h2>Best Score</h2>
-          <span>0</span>
+          <div>
+            <h2>Current Score</h2>
+            <span>0</span>
+          </div>
+          <div>
+            <h2>Best Score</h2>
+            <span>0</span>
+          </div>
         </div>
       </footer>
     </>
