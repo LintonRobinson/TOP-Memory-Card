@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import PokemonCard from "./components/PokemonCard";
+import GameOverScreen from "./components/GameOverScreen";
 import "./styles/App.css";
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
   const bestScore = useRef(0);
   const [isGameOver, setisGameOver] = useState(false);
   const currentRoundClickedPokemon = useRef([]);
+  const [showGameOverScreen, setShowGameOverScreen] = useState(false);
 
   useEffect(() => {
     if (!pokemonDataFetched.current) {
@@ -39,16 +41,26 @@ function App() {
     }
   }, []);
 
+  const resetGame = () => {
+    setisGameOver(false);
+    setCurrentScore(0);
+    currentRoundClickedPokemon.current = [];
+  };
+
   const checkForGameOver = (pokemonName) => {
     if (currentRoundClickedPokemon.current.includes(pokemonName)) {
       setisGameOver(true);
+      if (currentScore > bestScore.current) {
+        bestScore.current = currentScore;
+      }
+    } else {
+      currentRoundClickedPokemon.current.push(pokemonName);
+      setCurrentScore(currentScore + 1);
+      console.log("currentRoundClickedPokemon", currentRoundClickedPokemon);
     }
   };
 
   const handlePokemonCardClick = (pokemonName) => {
-    setCurrentScore(currentScore + 1);
-    console.log("currentRoundClickedPokemon", currentRoundClickedPokemon);
-    currentRoundClickedPokemon.current.push(pokemonName);
     checkForGameOver(pokemonName);
   };
 
@@ -69,13 +81,14 @@ function App() {
     randomizedPokemon = newRandomizedPokemon;
   }
 
-  if (pokemonDataFetched.current) {
+  if (pokemonDataFetched.current && !isGameOver) {
     randomizePokemonOrder();
   }
 
   return (
     <>
-      <div className="how-to-play-screen-wrapper">
+      {isGameOver && <GameOverScreen currentScore={currentScore} bestScore={bestScore.current} handleResetGame={resetGame} />}
+      {/* <div className="how-to-play-screen-wrapper">
         <div>
           <h2>How To Play</h2>
           <ol>
@@ -87,28 +100,8 @@ function App() {
           </ol>
           <button type="button">Close</button>
         </div>
-      </div>
-
-      {/* <div className="game-over-screen-wrapper">
-        <div>
-          <div>
-            <h2>Game Over!</h2>
-            <span>Oops! You clicked the same Pokémon twice!</span>
-          </div>
-          <div>
-            <div>
-              <h3>Your Score</h3>
-              <span>{currentScore}</span>
-            </div>
-            <div>
-              <h3>Best Score</h3>
-              <span>0</span>
-            </div>
-          </div>
-          <span>Keep playing to beat your high score!</span>
-          <button type="button">PLAY AGAIN</button>
-        </div>
       </div> */}
+
       <header>
         <div>
           <h1>Pokémon Memory Game</h1>
@@ -117,10 +110,13 @@ function App() {
         <button>How To Play</button>
       </header>
       <main className="gameboard">
-        {pokemonDataFetched.current &&
-          randomizedPokemon.map((pokemonCard) => (
-            <PokemonCard pokemonName={pokemonCard.name} pokemonImageUrl={pokemonCard.imgageUrl} key={pokemonCard.id} handlePokemonCardClick={handlePokemonCardClick} />
-          ))}
+        {pokemonDataFetched.current && !isGameOver
+          ? randomizedPokemon.map((pokemonCard) => (
+              <PokemonCard pokemonName={pokemonCard.name} pokemonImageUrl={pokemonCard.imgageUrl} key={pokemonCard.id} handlePokemonCardClick={handlePokemonCardClick} />
+            ))
+          : initialPokemonData.map((pokemonCard) => (
+              <PokemonCard pokemonName={pokemonCard.name} pokemonImageUrl={pokemonCard.imgageUrl} key={pokemonCard.id} handlePokemonCardClick={handlePokemonCardClick} />
+            ))}
       </main>
       <footer>
         <div>
@@ -130,7 +126,7 @@ function App() {
           </div>
           <div>
             <h2>Best Score</h2>
-            <span>0</span>
+            <span>{bestScore.current}</span>
           </div>
         </div>
       </footer>

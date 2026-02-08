@@ -1,0 +1,58 @@
+.how-to-play-screen-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.604);
+  background-size: auto 100vh;
+  backdrop-filter: blur(2px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  z-index: 2;
+  color: black !important;
+}
+
+.how-to-play-screen-wrapper > div {
+  background-color: white;
+  border-radius: 16px;
+  padding: 65px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  box-shadow: 0px 0px 28px -12px rgba(255, 255, 255, 0.871);
+  border: 1.5px solid rgba(49, 49, 49, 0.88);
+}
+
+.how-to-play-screen-wrapper h2,
+.how-to-play-screen-wrapper li {
+  color: black;
+}
+.how-to-play-screen-wrapper h2 {
+  font-size: 2.3rem;
+}
+
+.how-to-play-screen-wrapper ol {
+  padding-left: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.how-to-play-screen-wrapper button {
+  text-align: center;
+
+  padding: 10px;
+  box-shadow: 0px 0px 23px -14px rgba(0, 0, 0, 0.5) inset;
+  border-radius: 16px;
+  background-color: #07203e;
+  transition: ease 0.7s;
+  border: none;
+}
+
+.how-to-play-screen-wrapper button:hover {
+  background-color: #07203e95;
+  transition: ease 0.7s;
+  cursor: pointer;
+}
