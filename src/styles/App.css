@@ -232,6 +232,149 @@ footer span {
   font-weight: 650;
 }
 
+.game-over-screen-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.604);
+  background-size: auto 100vh;
+  backdrop-filter: blur(2px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  z-index: 2;
+  color: black !important;
+}
+
+.game-over-screen-wrapper h2,
+.game-over-screen-wrapper h3,
+.game-over-screen-wrapper span {
+  color: black;
+}
+
+.game-over-screen-wrapper h2 {
+  font-size: 2.3rem;
+}
+
+.game-over-screen-wrapper h3 {
+  font-size: 1.3rem;
+}
+
+.game-over-screen-wrapper > div {
+  background-color: white;
+  border-radius: 16px;
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0px 0px 28px -12px rgba(255, 255, 255, 0.871);
+}
+
+.game-over-screen-wrapper > div > div:nth-child(1) {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center;
+}
+
+.game-over-screen-wrapper > div > div:nth-child(2) {
+  display: flex;
+
+  gap: 20px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-over-screen-wrapper > div > div:nth-child(2) > div {
+  font-size: 1.6rem;
+}
+
+.game-over-screen-wrapper > div > div:nth-child(2) > div span {
+  font-size: 1.6rem;
+}
+
+.game-over-screen-wrapper > div > div:nth-child(2) > div {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.game-over-screen-wrapper > div > div:nth-child(2) > div:nth-child(2) span {
+  color: rgb(59, 162, 59);
+}
+
+.game-over-screen-wrapper > div > span {
+  text-align: center;
+  display: block;
+  padding: 10px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5) inset;
+  border-radius: 16px;
+  background-color: rgba(202, 202, 202, 0.655);
+}
+
+.game-over-screen-wrapper button,
+.how-to-play-screen-wrapper button {
+  text-align: center;
+
+  padding: 10px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5) inset;
+  border-radius: 16px;
+  background-color: #07203e;
+  transition: ease 0.7s;
+  border: none;
+}
+
+.game-over-screen-wrapper button:hover,
+.how-to-play-screen-wrapper button:hover {
+  background-color: #07203e95;
+  transition: ease 0.7s;
+  cursor: pointer;
+}
+
+.how-to-play-screen-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.604);
+  background-size: auto 100vh;
+  backdrop-filter: blur(2px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  z-index: 2;
+  color: black !important;
+}
+
+.how-to-play-screen-wrapper > div {
+  background-color: white;
+  border-radius: 16px;
+  padding: 65px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  box-shadow: 0px 0px 28px -12px rgba(255, 255, 255, 0.871);
+  border: 1.5px solid rgba(49, 49, 49, 0.88);
+}
+
+.how-to-play-screen-wrapper h2,
+.how-to-play-screen-wrapper li {
+  color: black;
+}
+.how-to-play-screen-wrapper h2 {
+  font-size: 2.3rem;
+}
+
+.how-to-play-screen-wrapper ol {
+  padding-left: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
 /******************************************
 /* ADDITIONAL STYLES
 /*******************************************/

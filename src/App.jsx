@@ -8,9 +8,10 @@ function App() {
   const pokemonDataFetched = useRef(false);
 
   let randomizedPokemon = useRef(null);
-  const [currentScore, setCurrentScore] = useState([]);
-  const [bestScore, setBestScore] = useState([]);
-  const [currentRoundClickedPokemon, setCurrentRoundClickedPokemon] = useState([]);
+  const [currentScore, setCurrentScore] = useState(0);
+  const bestScore = useRef(0);
+  const [isGameOver, setisGameOver] = useState(false);
+  const currentRoundClickedPokemon = useRef([]);
 
   useEffect(() => {
     if (!pokemonDataFetched.current) {
@@ -38,7 +39,18 @@ function App() {
     }
   }, []);
 
-  const handlePokemonCardClick = () => {};
+  const checkForGameOver = (pokemonName) => {
+    if (currentRoundClickedPokemon.current.includes(pokemonName)) {
+      setisGameOver(true);
+    }
+  };
+
+  const handlePokemonCardClick = (pokemonName) => {
+    setCurrentScore(currentScore + 1);
+    console.log("currentRoundClickedPokemon", currentRoundClickedPokemon);
+    currentRoundClickedPokemon.current.push(pokemonName);
+    checkForGameOver(pokemonName);
+  };
 
   function randomizePokemonOrder() {
     const newRandomizedPokemon = [];
@@ -59,13 +71,44 @@ function App() {
 
   if (pokemonDataFetched.current) {
     randomizePokemonOrder();
-    console.log("randomizedPokemon", randomizedPokemon);
   }
-
-  console.log("initialPokemonData", initialPokemonData);
 
   return (
     <>
+      <div className="how-to-play-screen-wrapper">
+        <div>
+          <h2>How To Play</h2>
+          <ol>
+            <li>Click on any Pokémon card</li>
+            <li>Cards will shuffle after each click</li>
+            <li>Try to click each Pokémon only once</li>
+            <li>If you click the same Pokémon twice, game over!</li>
+            <li>Goal: Click all 12 Pokémon without repeating</li>
+          </ol>
+          <button type="button">Close</button>
+        </div>
+      </div>
+
+      {/* <div className="game-over-screen-wrapper">
+        <div>
+          <div>
+            <h2>Game Over!</h2>
+            <span>Oops! You clicked the same Pokémon twice!</span>
+          </div>
+          <div>
+            <div>
+              <h3>Your Score</h3>
+              <span>{currentScore}</span>
+            </div>
+            <div>
+              <h3>Best Score</h3>
+              <span>0</span>
+            </div>
+          </div>
+          <span>Keep playing to beat your high score!</span>
+          <button type="button">PLAY AGAIN</button>
+        </div>
+      </div> */}
       <header>
         <div>
           <h1>Pokémon Memory Game</h1>
@@ -74,13 +117,16 @@ function App() {
         <button>How To Play</button>
       </header>
       <main className="gameboard">
-        {pokemonDataFetched.current && randomizedPokemon.map((pokemonCard) => <PokemonCard pokemonName={pokemonCard.name} pokemonImageUrl={pokemonCard.imgageUrl} key={pokemonCard.id} />)}
+        {pokemonDataFetched.current &&
+          randomizedPokemon.map((pokemonCard) => (
+            <PokemonCard pokemonName={pokemonCard.name} pokemonImageUrl={pokemonCard.imgageUrl} key={pokemonCard.id} handlePokemonCardClick={handlePokemonCardClick} />
+          ))}
       </main>
       <footer>
         <div>
           <div>
             <h2>Current Score</h2>
-            <span>0</span>
+            <span>{currentScore}</span>
           </div>
           <div>
             <h2>Best Score</h2>
