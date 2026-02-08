@@ -1,11 +1,16 @@
 import { useState, useEffect, useRef } from "react";
-import "./App.css";
+import PokemonCard from "./components/PokemonCard";
+import "./styles/App.css";
 
 function App() {
   const pokemonNames = ["pikachu", "charizard", "bulbasaur", "charmander", "squirtle", "eevee", "jigglypuff", "gengar", "snorlax", "lapras", "dragonite", "mewtwo"];
   const [initialPokemonData, setInitialPokemonData] = useState([]);
-  const [exampleName, setExampleName] = useState(null);
   const pokemonDataFetched = useRef(false);
+
+  let randomizedPokemon = useRef(null);
+  const [currentScore, setCurrentScore] = useState([]);
+  const [bestScore, setBestScore] = useState([]);
+  const [currentRoundClickedPokemon, setCurrentRoundClickedPokemon] = useState([]);
 
   useEffect(() => {
     if (!pokemonDataFetched.current) {
@@ -26,42 +31,38 @@ function App() {
           alert("There was an error");
           console.error(error.message);
         }
-
-        console.log("initialFetchedPokemonData", initialFetchedPokemonData);
         setInitialPokemonData(initialFetchedPokemonData);
       };
 
       fetchPokemonData();
-
-      //
     }
   }, []);
 
-  const [randomizedPokemon, setRandomizedPokemon] = useState([]);
-  const [currentScore, setCurrentScore] = useState([]);
-  const [bestScore, setBestScore] = useState([]);
-  const [currentRoundClickedPokemon, setCurrentRoundClickedPokemon] = useState([]);
   const handlePokemonCardClick = () => {};
 
-  //console.log("initialPokemonData.current", initialPokemonData.current);
-
   function randomizePokemonOrder() {
-    const randomizedPokemon = [];
+    const newRandomizedPokemon = [];
     const usedIndexNumbers = [];
-    console.log("initialPokemonData.current Indy", initialPokemonData.current.length);
-    for (let i = 1; i < 13; i++) {
+
+    for (let i = 0; i < 12; i++) {
       let randomIndexNumber = Math.floor(Math.random() * 12);
       while (usedIndexNumbers.includes(randomIndexNumber)) {
         randomIndexNumber = Math.floor(Math.random() * 12);
       }
 
-      console.log("randomIndexNumber", randomIndexNumber);
-
-      randomizedPokemon.push(initialPokemonData.current);
+      usedIndexNumbers.push(randomIndexNumber);
+      newRandomizedPokemon.push(initialPokemonData[randomIndexNumber]);
     }
+
+    randomizedPokemon = newRandomizedPokemon;
+  }
+
+  if (pokemonDataFetched.current) {
+    randomizePokemonOrder();
     console.log("randomizedPokemon", randomizedPokemon);
   }
-  console.log("pokeoe", pokemonDataFetched);
+
+  console.log("initialPokemonData", initialPokemonData);
 
   return (
     <>
@@ -73,30 +74,7 @@ function App() {
         <button>How To Play</button>
       </header>
       <main className="gameboard">
-        <div className="pokemon-card">
-          <span>{pokemonDataFetched.current && initialPokemonData[3].name}</span>
-          <img src="/public/images/favicon.png" alt="" />
-        </div>
-        <div className="pokemon-card">
-          <span>Pika Pika</span>
-          <img src="/public/images/favicon.png" alt="" />
-        </div>
-        <div className="pokemon-card">
-          <span>Pika Pika</span>
-          <img src="/public/images/favicon.png" alt="" />
-        </div>
-        <div className="pokemon-card">
-          <span>Pika Pika</span>
-          <img src="/public/images/favicon.png" alt="" />
-        </div>
-        <div className="pokemon-card">
-          <span>Pika Pika</span>
-          <img src="/public/images/favicon.png" alt="" />
-        </div>
-        <div className="pokemon-card">
-          <span>Pika Pika</span>
-          <img src="/public/images/favicon.png" alt="" />
-        </div>
+        {pokemonDataFetched.current && randomizedPokemon.map((pokemonCard) => <PokemonCard pokemonName={pokemonCard.name} pokemonImageUrl={pokemonCard.imgageUrl} key={pokemonCard.id} />)}
       </main>
       <footer>
         <div>

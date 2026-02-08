@@ -154,6 +154,10 @@ header button:hover {
   .gameboard {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  header {
+    flex-direction: row;
+  }
 }
 
 @media (min-width: 1000px) {
